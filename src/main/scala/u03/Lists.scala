@@ -47,6 +47,13 @@ object Lists extends App :
     //{case v if pred(v) => Cons(v, Nil()); case _ => Nil()}
     def filterNew[A](l: List[A])(pred: A => Boolean): List[A] = flatMap(l)( x=>{if pred(x) then Cons(x, Nil()) else Nil()} )
 
+    //matcho la lista, se vuota torno None, se piena confronto l'elemento con il massimo della coda
+    def max(l: List[Int]): Option[Int] = l match
+      case Cons(h, t) => max(t) match       //se la lista ha un elemento, calcolo il max della coda
+        case Some(maxT) if maxT>h => Some(maxT) //se il max della coda è maggiore ritorna maxT
+        case _ => Some(h)                       //se il max della coda è minore o ritorna None
+      case Nil() => None                    //se lista vuota ritorno None
+
   val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
   println(List.sum(l)) // 60
 

@@ -47,3 +47,7 @@ class ListTest:
   @Test def testFilterNew() =
     assertEquals(Cons(20, Cons(30, Nil())), filterNew(l)(_ >= 20))
     assertEquals(Cons(10, Cons(30, Nil())), filterNew(l)(_ != 20))
+
+  @Test def testMax() =
+    assertEquals(max(Cons(10, Cons(25, Cons(20, Nil())))), Some(25))
+    assertEquals(max(Nil()), None())
