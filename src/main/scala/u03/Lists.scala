@@ -54,6 +54,10 @@ object Lists extends App :
         case _ => Some(h)                       //se il max della coda è minore o ritorna None
       case Nil() => None                    //se lista vuota ritorno None
 
+    
+    import u02.Modules.Person
+    def courseOfTeacher(l:List[Person]):List[String] = flatMap(l)({case Person.Teacher(n,course) =>Cons(course,Nil()); case _ => Nil()})
+
   val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
   println(List.sum(l)) // 60
 

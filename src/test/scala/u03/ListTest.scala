@@ -50,4 +50,11 @@ class ListTest:
 
   @Test def testMax() =
     assertEquals(max(Cons(10, Cons(25, Cons(20, Nil())))), Some(25))
-    assertEquals(max(Nil()), None())
+    assertEquals(max(Nil()), None)
+
+  @Test def testCourseOfTeacher() =
+    import u02.Modules.Person
+    import u02.Modules.Person.*
+    val lst:List[Person] = Cons(Student("s1",1), Cons(Teacher("t1", "cr1"), Cons(Teacher("t2", "cr2"), Cons(Student("s2",2),Nil()))))
+    assertEquals(courseOfTeacher(lst), Cons("cr1", Cons("cr2", Nil())))
+    assertEquals(courseOfTeacher(Nil()), Nil())
