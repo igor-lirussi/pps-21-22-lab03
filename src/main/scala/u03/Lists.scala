@@ -54,9 +54,34 @@ object Lists extends App :
         case _ => Some(h)                       //se il max della coda è minore o ritorna None
       case Nil() => None                    //se lista vuota ritorno None
 
-    
+
     import u02.Modules.Person
     def courseOfTeacher(l:List[Person]):List[String] = flatMap(l)({case Person.Teacher(n,course) =>Cons(course,Nil()); case _ => Nil()})
+
+    //notare fun:(B,A)=>B
+    //una funzione che compara una coppia e ritorna un valore
+    //l'accumulatore va a sinistra ed è di tipo B (l'ordine conta nel meno) e la testa a dx di tipo A
+    // (((acc) - 7) - 1) - 5  diverso da (5-(1-(7-acc)))
+    //tipi diversi perchè nell uso prendo l'accumulatore di tipo B e la comparo con la testa di tipo A  e ritorna un nuovo acc di tipo B
+    @tailrec
+    def foldLeft[A,B](lst:List[A])(acc:B)(fun:(B,A)=>B):B = lst match
+      case Cons(h, t) => foldLeft(t)(fun(acc,h))(fun) // torna il ris della funzione foldLeft applicata a tutta la coda con acc = computato acc vecchio e testa
+      case Nil() => acc
+
+    def reverse[A](lst:List[A]):List[A] = lst match
+      case Cons(h,t) => append(reverse(t), Cons(h, Nil())) //alla coda reverse viene aggiunta la testa in coda
+      case Nil() => Nil()
+
+    //anzichè passare solo fun, passo una funzione che applica fun con parametri invertiti, l'accumulatore sta a destra ora
+    //notare adesso fun:(A,B)=>B poichè abbiamo invertito i parametri e quindi anche i tipi
+    def foldRightWrev[A,B](lst:List[A])(acc:B)(fun:(A,B)=>B):B = foldLeft(reverse(lst))(acc)((x, y) => fun(y, x))
+
+
+    def foldRight[A,B](lst: List[A])(acc:B)(fun: (A,B)=>B):B= lst match
+      case Cons(h, t) => fun(h, foldRight(t)(acc)(fun))
+      case Nil() => acc
+
+
 
   val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
   println(List.sum(l)) // 60

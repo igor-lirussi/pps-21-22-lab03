@@ -58,3 +58,20 @@ class ListTest:
     val lst:List[Person] = Cons(Student("s1",1), Cons(Teacher("t1", "cr1"), Cons(Teacher("t2", "cr2"), Cons(Student("s2",2),Nil()))))
     assertEquals(courseOfTeacher(lst), Cons("cr1", Cons("cr2", Nil())))
     assertEquals(courseOfTeacher(Nil()), Nil())
+
+  @Test def fold()=
+    val lst = Cons(3, Cons(7, Cons(1, Cons(5, Nil()))))
+    //foldLeft
+    assertEquals(16, foldLeft(lst)(0)(_ + _))
+    assertEquals(-16, foldLeft(lst)(0)(_ - _))
+    val lst2 = Cons(true, Cons(true, Cons(false, Cons(true, Nil()))))
+    assertEquals(true, foldLeft(lst2)(true)(_ || _))
+    assertEquals(false, foldLeft(lst2)(true)(_ && _))
+    //assertEquals(-16, foldLeft(lst)(0)(_ < _) ) impossibile
+    //reverse
+    assertEquals(Cons(5, Cons(1, Cons(7, Cons(3, Nil())))), reverse(lst))
+    assertEquals(Nil(), reverse(Nil()))
+    //foldRight
+    //5-0 1-5 7--4 3-11 = (3-(7-(1-(5-0))) = -8
+    assertEquals(-8, foldRightWrev(lst)(0)(_ - _))
+    assertEquals(-8, foldRight(lst)(0)(_ - _))
