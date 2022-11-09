@@ -17,7 +17,7 @@ class StreamTest:
   @Test
   def testConstant() =
     val a = 0
-    //assertEquals(Cons("x", Cons("x", Cons("x", Cons("x", Cons("x", Nil()))))), Stream.toList(Stream.take(Stream.constant("x"))(5)))
+    assertEquals(Cons("x", Cons("x", Cons("x", Cons("x", Cons("x", Nil()))))), Stream.toList(Stream.take(Stream.constant("x"))(5)))
 
   @Test
   def testFibonacci() =

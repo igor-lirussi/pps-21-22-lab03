@@ -41,6 +41,7 @@ object Streams extends App:
       case Cons(h, t) if n > 0 => drop(t())(n-1)
       case _ => stream
 
+    def constant[A](k:A):Stream[A] = cons(k, constant(k))
 
   end Stream
 
