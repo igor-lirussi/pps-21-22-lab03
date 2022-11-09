@@ -43,6 +43,16 @@ object Streams extends App:
 
     def constant[A](k:A):Stream[A] = cons(k, constant(k))
 
+
+    def _fibs(first:Int, second:Int): Stream[Int] = cons(first, _fibs(second, first+second))
+    
+    val fibs: Stream[Int] = _fibs(0,1)
+
+    val fibs2 : Stream [Int ] = Stream.map(
+      Stream.iterate((0, 1))({case (x, y) => (y, x + y)})) //crea uno stream a partire da (0,1) in cui la prossima coppia è (secondo, somma percedenti)
+      ({case (x, y) => x}) //con la map dallo stream di coppie ritorno solo il primo valore
+
+
   end Stream
 
   // var simplifies chaining of functions a bit..
